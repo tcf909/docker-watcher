@@ -32,7 +32,7 @@ RUN() {
 
 }
 
-inotifywait -m -e close_write -e moved_to --format '%w%f' "${SOURCE}" | \
+inotifywait --exclude '/\..+' -m -e create -e close -e moved_to --format '%w%f' "${SOURCE}" | \
 while read TFILE; do
 
     [[ "${DEBUG}" == "true" ]] && set -x
