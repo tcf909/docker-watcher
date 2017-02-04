@@ -55,7 +55,8 @@ while read TFILE; do
         RUN "${CMD}"
         EXIT=$?
 
-        [[ "${EXIT}" != "0" ]] && echo "Problem with command (${CMD}). Return code (${EXIT}). Exiting." && exit ${EXIT}
+        #Exit code 23 is from rsync and can happen
+        [[ "${EXIT}" != "0" && "${EXIT}" != "23" ]] && echo "Problem with command (${CMD}). Return code (${EXIT}). Exiting." && exit ${EXIT}
 
 	WAITING=("${WAITING[@]:1}")
 
