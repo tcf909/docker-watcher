@@ -1,9 +1,6 @@
 FROM tcf909/ubuntu-slim:latest
 MAINTAINER T.C. Ferguson <tcf909@gmail.com>
 
-ARG DEBUG=true
-ENV DEBUG=${DEBUG:-false}
-
 RUN \
     apt-get update && \
     apt-get upgrade && \
