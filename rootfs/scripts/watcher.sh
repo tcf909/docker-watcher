@@ -35,6 +35,8 @@ RUN() {
 inotifywait --exclude '/\..+' -m -e create -e close -e moved_to --format '%w%f' "${SOURCE}" | \
 while read TFILE; do
 
+    [[ ! -e ${TFILE} ]] && continue
+
     [[ "${DEBUG}" == "true" ]] && set -x
 
     [[ "${RUNNING}" == 1 ]] && WAITING+=("${TFILE}") && continue
