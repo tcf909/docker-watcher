@@ -32,10 +32,12 @@ RUN() {
 
 }
 
-inotifywait --exclude '/\..+' -m -e create -e close -e moved_to --format '%w%f' "${SOURCE}" | \
+inotifywait --exclude '/\..+' -m -e create -e modify -e moved_to --format '%w%f' "${SOURCE}" | \
 while read TFILE; do
 
     [[ ! -e ${TFILE} ]] && continue
+
+    [[ "${TFILE}" == "${SOURCE}" ]] && echo "Event on root path with no file. Skipping." && continue
 
     [[ "${DEBUG}" == "true" ]] && set -x
 
