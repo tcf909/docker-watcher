@@ -32,6 +32,14 @@ RUN() {
 
 }
 
+function cleanup {
+  trap - HUP INT TERM QUIT EXIT
+  kill -- -$$
+  exit $1
+}
+
+trap cleanup HUP INT TERM QUIT EXIT
+
 inotifywait --exclude '/\..+' -m -e create -e modify -e moved_to --format '%w%f' "${SOURCE}" | \
 while read TFILE; do
 
